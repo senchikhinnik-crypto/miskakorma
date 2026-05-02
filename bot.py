@@ -1,8 +1,10 @@
-# ====== ВЕБ-СЕРВЕР ДЛЯ RENDER (ЧТОБЫ НЕ ЗАСЫПАЛ) ======
 from flask import Flask
 import threading
-import requests
+import os
+import discord
+from discord.ext import commands
 
+# ====== ВЕБ-СЕРВЕР ДЛЯ RENDER (ЧТОБЫ НЕ ЗАСЫПАЛ) ======
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,6 +16,13 @@ def run_web():
 
 threading.Thread(target=run_web, daemon=True).start()
 # =====================================================
+
+# ====== ФИКС ПРОКСИ ДЛЯ RENDER ======
+os.environ['http_proxy'] = ''
+os.environ['https_proxy'] = ''
+os.environ['NO_PROXY'] = '*'
+# ===================================
+
 import discord
 from discord.ext import commands
 
